@@ -1,8 +1,12 @@
 obj-m := mk_arcade_joystick_rpi.o
-KVERSION := `uname -r`
+KVERSION := $(shell uname -r)
 
 ifneq (,$(findstring -v7, $(KVERSION)))
 CFLAGS_mk_arcade_joystick_rpi.o := -DRPI2
+endif
+
+ifneq (,$(findstring -tegra, $(KVERSION)))
+CFLAGS_mk_arcade_joystick_rpi.o := -DNANO
 endif
 
 all:
